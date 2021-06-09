@@ -1,0 +1,42 @@
+// C++ Program to find root of a function, f(x), by applying the Muller's Methode<<< Made by Haile<<<
+#include<iostream>
+#include<string>
+#include<cmath>
+#define I 2  // here 'I' stands for 'Index'
+using namespace std;
+
+// Function to calculate f(x)
+float f(double x){
+	// here is the function  f(x) 
+	return pow(x, 3) - 0.5*pow(x,2) + 4*x - 2;// insert your function here
+}
+int main(){
+    int i, itr, max_itr;
+    double x[3], d1, d2, h1, h2, a, b, c, err;
+    cout<<"\nEnter the three initial guesses:\n";
+    cin>>x[0]>>x[1]>>x[2];
+    //if(x[])
+    cout<<"Enter maximum iterations:\n";
+    cin>>max_itr;
+    for(itr=1; itr <= max_itr; itr++){
+        h1=x[I-1] - x[I-2];
+        h2=x[I] - x[I-1];
+        d1= (f(x[I-1])-f(x[I-2]))/h1;
+        d2= (f(x[I])-f(x[I-1]))/h2;
+        a=(d2-d1)/(h1+h2);
+        b=a*h2 + d2;
+        c=f(x[I]);
+        err=fabs((c-x[I])/c)*100;
+        if(fabs(b+sqrt(pow(b,2)-4*a*c))>= fabs(b-sqrt(pow(b,2)-4*a*c))){
+            x[I]=x[I]-(2*c)/(b+sqrt(pow(b,2)-4*a*c));
+        }
+        else{
+            x[I]=x[I]-(2*c)/(b-sqrt(pow(b,2)-4*a*c));
+        } 
+        cout<<"At Iteration no."<<itr<<"the New geusst(X3) is "<<x[I]<<" ,and its function value is "<<f(x[I])<<", and the estimated error is "<<err<<"%\n";
+        
+    }
+    
+    cout<<"After "<<--itr<<" iterations, the required root is found to be "<<x[I];
+    return 0;
+}
